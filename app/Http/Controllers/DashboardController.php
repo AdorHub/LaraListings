@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class DashboardController extends Controller
+{
+    public function index(Request $request)
+	{
+		$listings = $request->user()->role !== 'suspended' ? $request->user()->listings()->latest()->paginate(8) : null;
+		return Inertia::render('Dashboard', [
+			'listings' => $listings,
+			'message' => session('status')
+		]);
+	}
+}
