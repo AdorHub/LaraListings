@@ -1,61 +1,158 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div id="start" hidden></div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![logo](./logo.png)
 
-## About Laravel
+<h1 align=center>Simple Listings App 📄</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<div align="center">
+	<img src="https://img.shields.io/badge/Laravel-darkred">
+	<img src="https://img.shields.io/badge/Vue-green">
+	<img src="https://img.shields.io/badge/Html-orange">
+	<img src="https://img.shields.io/badge/Tailwind-indigo">
+	<img src="https://img.shields.io/badge/Java_Script-yellow">
+	<img src="https://img.shields.io/badge/Inertia-8A2BE2">
+	<img src="https://img.shields.io/badge/Ziggy-lightyellow">
+</div>
+<div align="center" style="margin-top: 10px;">
+	<img src="https://img.shields.io/badge/Status-Improving-red">
+</div>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Навигация
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- <a href="#описание"><u>Описание</u></a>
+- <a href="#превью"><u>Превью сайта</u></a>
+- <a href="#использование"><u>Использование</u></a>
+- <a href="#проблемы"><u>При неполадках</u></a>
 
-## Learning Laravel
+## Описание
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Про сайт**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Сайт для просмотра листингов (постов) с возможностью создавать, редактировать и удалять свои листинги. С помощью фильтрации на главной странице можно как искать интересующие посты в поле поиска или при нажатии на карточке листинга или на его странице по имени или тэгу так и очищать примененные уже фильтры. Чтобы создавать и просматривать свои листинги пользователю нужно подтвердить почту после регистрации и не быть *suspended*. Листинги *suspended* пользователей и не подтвержденные администратором не видны на главной странице, но видны администратору в его панели администратора где можно также просмотреть эти листинги открыв их детальную страницу скрытую от пользователей. Все страницы со списками данных содержат пагинацию.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Возможности**
 
-## Laravel Sponsors
+<u>Пользователь</u> - может сбросить пароль, изменить свои данные и полностью удалить аккаунт, также имеет панель просмотра своих листингов где может редактировать и удалять посты и отслеживать их подтверждение.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+<u>Администратор</u> - те же возможности что и Пользователь + имеет доступ к админ-панели в которой список всех пользователей, в этой таблице админ получает логин и почтовый адрес пользователя, может изменять тип пользователя на один из трёх: *general**, *suspended**, *admin** Отслеживать количество подтверждённых и неподтверждённых листингов и просматривать листинги конкретного пользователя с возможностью подтвердить их в админ-панели или на страницу листинга при нажатии по кнопке.
 
-### Premium Partners
+> **admin* - пользователь с type: admin, является администратором и получает доступ к админ-панели, постам *suspended* пользователей
+> 
+> **suspended* - приостановленный пользователь, не имеет доступа к панели просмотра своих листингов, удалению и к страницам действий с ними. Все, даже подтверждённые ранее листинги этого пользователя теперь не видны на главной странице.
+> 
+> **general* - (по умолчанию) обычный пользователь, может работать с листингами.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+**Реализация**
+##### `Frontend`
+`Vue (Composition API)` Отвечает за клиентскую часть и связан с `Laravel` с помощью библиотеки `Inertia.js`.
+Используются как стандартный набор функций `Vue` так и те что предлагает `Inertia.js` и дополнительно для генерации url по имени маршрута используется пакет `Ziggy`.
+В качестве стилей используется библиотека стилей `Tailwind.css`.
+Сборщиком выступает `Vite`.
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+##### `Backend`
+Серверная часть реализована на объекто-ориентированном фреймворке языка программирования `PHP` - `Laravel`. Аутентификация, авторизация, заполнение таблицы, обработка запросов клиента и возврат ответов в виде компонентов с помощью `Inertia.js` всё это внутри `Laravel`
 
-## Code of Conduct
+## Превью
+**Главная страница**
+![image](https://github.com/user-attachments/assets/e4a7e90f-2147-48d3-89d2-5c6d21dce640)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Админ панель**
+![image](https://github.com/user-attachments/assets/9104e1af-2c81-4afc-b242-9baf78d3f86d)
 
-## Security Vulnerabilities
+**Админ панель, посты пользователя**
+![image](https://github.com/user-attachments/assets/3f46f678-d044-45c7-bea2-64ac1700ee02)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Страница пользователя**
+![image](https://github.com/user-attachments/assets/b7ee59df-6dc8-4863-874c-26a20de35e4d)
 
-## License
+**Страница создания листинга**
+![image](https://github.com/user-attachments/assets/847f8319-b43d-4ed0-8c5c-36f9df8a61bb)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Панель управления листингами**
+![image](https://github.com/user-attachments/assets/581bc95c-6df4-4f34-b9fd-4a6b12e290d9)
+
+**Страница регистрации**
+![image](https://github.com/user-attachments/assets/ba44b321-2579-4420-93df-7e70ec514e52)
+
+## Использование
+
+> Убедитесь что у вас уже установлен PHP, Composer, Node.js, Git
+
+**После скачивания или клонирования проекта нужно установить backend зависимости:**
+```bash
+composer install
+```
+**Установить frontend зависимости:**
+```bash
+npm install
+```
+
+**Скопировать данные из файла .env.example в .env и сгенерировать новый ключ приложения и вставить в APP_KEY:**
+```
+php artisan key:generate
+```
+
+**Далее укажите свой конфиг для настройки БД:**
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=LaravelVueProject
+DB_USERNAME=root
+DB_PASSWORD=
+```
+**Запустить миграции для БД:**
+```
+php artisan migrate
+```
+
+**(Опционально) Засеять тестовыми данными БД из фабрик `Laravel`:**
+```
+php artisan db:seed
+```
+
+**Для начала разработки над проектом нужно запустить frontend и backend сервера:**
+```
+php artisan serve
+```
+```bash
+npm run dev
+```
+
+**Локальная разработка**
+
+Для локальной разработки рекомендуется использовать специализированный веб-сервер, такой как Open Server Panel, Laragon, XAMPP или MAMP. Эти инструменты предоставляют комплексную среду разработки, включающую в себя веб-сервер (Apache или Nginx), базу данных (MySQL) и другие компоненты.
+
+**Развёртывание проекта**
+
+После завершения установки и тестирования проект готов к развёртыванию на сервере. Для публикации проекта выполните следующие шаги:
+- Скопируйте проект на сервер.
+- Настройте базу данных и окружение.
+- Запустите проект в продакшен-режиме с помощью команды npm run build и php artisan serve --host=0.0.0.0.
+- Дополнительные действия в зависимости от требований
+
+## Проблемы
+
+<details style="margin-bottom: 10px">
+	<summary style="border: 1px solid gray; border-radius: 10px; margin-bottom: 10px; padding: 10px; ">
+		<b>Текст возможной проблемы</b>
+	</summary>
+	Текст решения проблемы
+</details>
+
+<details style="margin-bottom: 10px">
+	<summary style="border: 1px solid gray; border-radius: 10px; margin-bottom: 10px; padding: 10px; ">
+		<b>Текст возможной проблемы</b>
+	</summary>
+	Текст решения проблемы
+</details>
+
+<details style="margin-bottom: 10px">
+	<summary style="border: 1px solid gray; border-radius: 10px; margin-bottom: 10px; padding: 10px; ">
+		<b>Текст возможной проблемы</b>
+	</summary>
+	Текст решения проблемы
+</details>
+
+#### <a href="#start">⬆ Наверх</a>
