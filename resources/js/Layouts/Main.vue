@@ -16,11 +16,14 @@
 			<NavLink routeName="home" componentName="Home">Home</NavLink>
 
 			<div class="flex items-center space-x-6">				
-				<div v-if="user" class="relative">
+				<div v-if="user" class="relative flex gap-4 items-center">
 					<div @click="show = !show" class="flex items-center gap-2 px-3 py-1 rounded-lg hover:bg-slate-700 cursor-pointer" :class="{'!bg-slate-700': show}">
 						<p>{{ user.name }}</p>
 						<i class="fa-solid fa-angle-down"></i>
 					</div>
+					<Link v-if="user.role === 'admin'" :href="route('admin.index')" class="hover:bg-slate-700 w-6 h-6 grid place-items-center rounded-full hover-outline hover:outline-1 outline-white cursor-pointer">
+						<i class="fa-solid fa-lock"></i>
+					</Link>
 					<div v-if="show" @click="show = !show" class="absolute z-50 top-16 right-0 bg-slate-800 text-white rounded-lg border-slate-300 overflow-hidden w-40 opacity-95">
 						<Link class="block w-full px-6 py-3 hover:bg-slate-700 text-left" :href="route('profile.edit')">Profile</Link>
 						<Link class="block w-full px-6 py-3 hover:bg-slate-700 text-left" :href="route('listing.create')">New Listing</Link>

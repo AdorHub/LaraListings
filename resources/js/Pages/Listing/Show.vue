@@ -13,10 +13,25 @@
 			router.delete(route('listing.destroy', props.listing.id))
 		}
 	}
+
+	const toggleApprove = () => {
+		let msg = props.listing.approved ? 'Disapprove listing?' : 'Approve listing?';
+		if (confirm(msg)) {
+			router.patch(route('admin.approve', props.listing.id));
+		}		
+	}
 </script>
 
 <template>
 	<Head title="- Listing Details" />
+
+	<div v-if="$page.props.auth.user.role === 'admin'" class="text-white mb-6 p-6 rounded-md font-medium flex items-center justify-between" :class="{'bg-green-500' : listing.approved, 'bg-red-500' : !listing.approved}">
+		<p>Listing is {{ listing.approved ? 'Approved' : 'Disaproved'}}</p>
+		<button @click.prevent="toggleApprove(listing)" class="bg-slate-600 px-3 py-1 rounded-md cursor-pointer">
+			{{ listing.approved ? 'Dissaprove' : 'Approve' }}
+		</button>
+	</div>
+
 	<Container class="flex flex-col gap-4">
 		<div class="rounded-md overflow-hidden">
 			<img :src="listing.image ? `/storage/${listing.image}` : '/storage/images/listing/default.jpg'" class="w-full h-full object-cover object-center">

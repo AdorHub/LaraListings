@@ -19,7 +19,7 @@ createInertiaApp({
 			.component('Link', Link)
 			.mount(el)
 	},
-	title: (title) => `LaraPosts ${title}`,
+	title: (title) => `LaraListins ${title}`,
 	progress: {
 		color: '#fff',
 		showSpinner: true

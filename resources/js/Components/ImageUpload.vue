@@ -7,7 +7,6 @@
 	});
 
 	const currentImage = props.image ? `/storage/${props.image}` : null;
-
 	const preview = ref(currentImage);
 	const oversizedImage = ref(false);
 	const showUnselectBtn = ref(false);

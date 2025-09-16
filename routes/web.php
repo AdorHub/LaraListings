@@ -1,8 +1,5 @@
 <?php
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\EmailVerifyController;
@@ -12,6 +9,8 @@ use App\Http\Controllers\ListingController;
 use App\Http\Controllers\PasswordConfirmController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', [ListingController::class, 'index'])->name('home');
 
@@ -49,3 +48,10 @@ Route::middleware('auth')->group(function () {
 	Route::delete('/profile', [ProfileController::class, 'deleteAccount'])->name('profile.delete');
 });
 
+//Admin Panel
+Route::middleware(['auth', 'verified', AdminMiddleware::class])->controller(AdminController::class)->group(function () {
+	Route::get('/admin', 'index')->name('admin.index');
+	Route::get('/admin/users/{user}', 'show')->name('admin.show');
+	Route::patch('/admin/{user}/role', 'role')->name('admin.role');
+	Route::patch('/admin/listing/{listing}/approve', 'approve')->name('admin.approve');
+});
